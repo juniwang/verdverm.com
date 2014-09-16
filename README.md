@@ -12,7 +12,7 @@ git clone https://github.com/verdverm/verdverm.com
 cd verdverm.com
 mkdir -p tmp/postgresql
 
-cd deploy/docker
+cd deploy/dockers
 ./build.sh
 
 cd ..
