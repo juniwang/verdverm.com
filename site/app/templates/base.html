@@ -1,0 +1,113 @@
+<html lang="en">
+
+<head>
+    <title>{% block title %}{% endblock %} - verdverm.com</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!--  app css includes -->
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="/static/css/vendor/normalize.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="/static/css/vendor/foundation.min.css" />
+
+	{% for style in moreStyles %}<link rel="stylesheet" type="text/css" href="{{ style.href|e }}">
+    {% endfor %}
+
+    <script src="/static/js/vendor/head.load.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/vendor/modernizr.js" type="text/javascript" charset="utf-8"></script>
+
+   <!-- app js/css files loaded asychronously -->
+    <script>
+    head.ready(function() {
+        $(document).foundation();
+        {% for head in moreHead %} {{head.func|e}}
+        {% endfor %}
+    })
+    head
+        .js({jquery: "/static/js/vendor/jquery.js"})
+        .js({foundation_js: "/static/js/vendor/foundation.min.js"})     // default foundation js
+
+        {% for script in moreScripts %}
+        .js({{script.name}}: {{script.href}} }){% endfor %}
+
+        // .js({ verdverm_css: "/static/css/verdverm.css"})
+        // .js({ verdverm_js: "/static/js/verdverm.js"})
+
+    </script>
+
+</head>
+
+<body>
+	
+	<!-- THE MENU -->
+
+<nav class="top-bar" id="verdverm-top-bar" data-topbar>
+    <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+            <h1>
+                <a href="/">verdverm.com</a>
+            </h1>
+        </li>
+        <li class="toggle-topbar menu-icon">
+            <a href="#">
+                <span>Menu</span>
+            </a>
+        </li>
+    </ul>
+
+    <section class="top-bar-section">
+
+        <!-- Left Nav Section -->
+        <ul class="left">
+            <li class="divider"></li>
+                <li><a href="/signup">Signup</a></li>
+            <li class="divider"></li>
+                <li><a href="/register">Register</a></li>
+            <li class="divider"></li>
+                <li><a href="/posts">Posts</a></li>
+            <li class="divider"></li>
+                <li><a href="/forum">Forums</a></li>
+            <li class="divider"></li>
+        </ul>
+
+        <!-- Right Nav Section -->
+        {% if user %}
+        <ul class="right">
+            <li id="menu-user" class="has-dropdown"><a href="/u">{{ user.nickname }}</a>
+                <ul class="dropdown">
+                    <li><a href="/u/dashboard">Dashboard</a></li>
+                    <li><a href="/u/account">Account</a></li>
+                    <li><a href="/u/files">Files</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout">Logout</a></li>
+                    {% if admin %}
+                    <li class="divider"></li>
+                    <li id="menu-admin" class="has-dropdown"><a href="/a">Admin</a>
+                        <ul class="dropdown">
+                            <li><a href="/a/users">Manage Users</a></li>
+                            <li><a href="/a/posts">Manage Posts</a></li>
+                            <li><a href="/a/maillistcompose">Maillist Compose</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+        {%else%}
+        <ul class="right">
+            <li class="active"><a href="/login">Login</a></li>
+        </ul>
+        {%endif%}
+
+    </section>
+
+</nav>
+
+
+	<!-- END OF THE MENU -->
+
+    {% block content %}{% endblock %}
+
+</body>
+
+</html>

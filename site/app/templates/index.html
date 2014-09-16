@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+	<div class="row">
+	    <div class="large-8 large-centered small-12 columns">
+	        <div class="panel">
+	            {% if user %}
+	            <h3>Hello, {{user.nickname}}!</h3>
+	            <p>Your overview will be coming soon.</p>
+	            {% else %}
+	            <h3>Welcome to my Apple!</h3>
+	            <p><a href="/signup">Signup</a> to get email updates.</p>
+	            {% endif %}
+	        </div>
+	    </div>
+	</div>
+
+{% endblock %}

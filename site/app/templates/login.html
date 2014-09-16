@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-6 large-centered small-8 small-centered columns">
+        <div class="panel">
+            <div class="row">
+                <div class="large-12 columns">
+                    <form action="/login" method="POST">
+                        <fieldset>
+                            <legend>Login</legend>
+                            {{form.hidden_tag()}}
+                            
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label for="email">Email <small>required</small>
+                                        {{form.email(size=80,placeholder="user@domain.com")}}
+                                    </label>
+                                    {% for error in form.errors.email %}<small class="error">[{{error}}]</small>{% endfor %}
+                                </div>
+
+                                <div class="large-12 columns">
+                                    <label for="password">Password <small>required</small>
+                                        {{form.password(size=80,plassholder="pa55woRd")}}
+                                    </label>
+                                    {% for error in form.errors.password %}<small class="error">[{{error}}]</small>{% endfor %}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="button">Login</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

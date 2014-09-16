@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-6 large-centered small-8 small-centered columns">
+        <div class="panel">
+            <div class="row">
+                <div class="large-12 columns">
+                    <form action="/signup" method="POST">
+                        <fieldset>
+                            <legend>Maillist Signup</legend>
+                            {{form.hidden_tag()}}
+                            
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label for="email">Email <small>required</small>
+                                        {{form.email(size=80,placeholder="user@domain.com")}}
+                                    </label>
+                                    {% for error in form.errors.email %}<small class="error">[{{error}}]</small>{% endfor %}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="button">Signup</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

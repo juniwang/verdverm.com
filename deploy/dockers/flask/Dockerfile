@@ -3,10 +3,9 @@ MAINTAINER verdverm@gmail.com
 
 # Update stuff
 RUN apt-get update
-RUN apt-get upgrade -y
 
 # Install Python Setuptools
-RUN apt-get --no-install-recommends install -y python-setuptools build-essential python-dev
+RUN apt-get --no-install-recommends install -y python-setuptools build-essential python-dev libpq-dev ca-certificates
 
 # Install pip
 RUN easy_install pip
