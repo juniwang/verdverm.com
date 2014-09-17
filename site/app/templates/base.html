@@ -9,8 +9,7 @@
     <link rel="stylesheet" type="text/css" charset="utf-8" href="/static/css/vendor/normalize.css" />
     <link rel="stylesheet" type="text/css" charset="utf-8" href="/static/css/vendor/foundation.min.css" />
 
-	{% for style in moreStyles %}<link rel="stylesheet" type="text/css" href="{{ style.href|e }}">
-    {% endfor %}
+	{% block moreStyles %}{% endblock %}
 
     <script src="/static/js/vendor/head.load.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/vendor/modernizr.js" type="text/javascript" charset="utf-8"></script>
@@ -19,15 +18,13 @@
     <script>
     head.ready(function() {
         $(document).foundation();
-        {% for head in moreHead %} {{head.func|e}}
-        {% endfor %}
+        {% block moreHead %}{% endblock %}
     })
     head
         .js({jquery: "/static/js/vendor/jquery.js"})
         .js({foundation_js: "/static/js/vendor/foundation.min.js"})     // default foundation js
 
-        {% for script in moreScripts %}
-        .js({{script.name}}: {{script.href}} }){% endfor %}
+        {% block moreScripts %}{% endblock %}
 
         // .js({ verdverm_css: "/static/css/verdverm.css"})
         // .js({ verdverm_js: "/static/js/verdverm.js"})
@@ -37,7 +34,7 @@
 </head>
 
 <body>
-	
+
 	<!-- THE MENU -->
 
 <nav class="top-bar" id="verdverm-top-bar" data-topbar>

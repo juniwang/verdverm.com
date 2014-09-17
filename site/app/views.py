@@ -1,3 +1,4 @@
+
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.bcrypt import check_password_hash, generate_password_hash
@@ -38,15 +39,15 @@ def posts():
         user = None
 
     form = PageDownFormExample()
-    
+
     posts = [ # fake array of posts
-        { 
-            'author': { 'nickname': 'John' }, 
-            'body': 'Beautiful day in Portland!' 
+        {
+            'author': { 'nickname': 'John' },
+            'body': 'Beautiful day in Portland!'
         },
-        { 
-            'author': { 'nickname': 'Susan' }, 
-            'body': 'The Avengers movie was so cool!' 
+        {
+            'author': { 'nickname': 'Susan' },
+            'body': 'The Avengers movie was so cool!'
         }
     ]
     return render_template("posts.html",
@@ -76,7 +77,7 @@ def signup():
                     maillist=True )
         db.session.add(user)
         db.session.commit()
-    
+
         if user:
             flash('Signup successful.')
             return redirect(url_for('index'))
@@ -110,6 +111,7 @@ def register():
             user.maillist=True
             user.active=True
             user.role=ROLE_USER
+
             db.session.commit()
             return redirect(url_for('index'))
         else:
@@ -124,11 +126,11 @@ def register():
                     role=ROLE_USER )
         db.session.add(user)
         db.session.commit()
-    
+
         if user:
             flash('Registration successful.')
             return redirect(url_for('index'))
-        
+
         else:
             flash('Failed to register user...')
     return render_template('register.html', form=form)
@@ -140,9 +142,9 @@ def login():
         return redirect(url_for('index'))
 
     form = LoginForm()
-    
+
     if form.validate_on_submit():
-        user = UserBasic.query.filter_by(email=form.email.data).first()
+        user = UserBasic.query.filter_by( email=form.email.data ).first()
         if user and bcrypt.check_password_hash(user.hpass, form.password.data):
             session[user.id] = user.id
             login_user(user)
@@ -151,6 +153,7 @@ def login():
             return redirect(request.args.get("next") or url_for("index"))
         else:
             flash("Invalid Login")
+
     return render_template('login.html', form = form)
 
 

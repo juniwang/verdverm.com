@@ -12,7 +12,7 @@
                         <fieldset>
                             <legend>Login</legend>
                             {{form.hidden_tag()}}
-                            
+
                             <div class="row">
                                 <div class="large-12 columns">
                                     <label for="email">Email <small>required</small>
@@ -23,7 +23,7 @@
 
                                 <div class="large-12 columns">
                                     <label for="password">Password <small>required</small>
-                                        {{form.password(size=80,plassholder="pa55woRd")}}
+                                        {{form.password(size=80,placeholder="pa55woRd")}}
                                     </label>
                                     {% for error in form.errors.password %}<small class="error">[{{error}}]</small>{% endfor %}
                                 </div>

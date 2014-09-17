@@ -13,9 +13,10 @@ alembic
 
 flask-mail
 flask-wtf
-flask-pagedown
-
 flask-assets
+flask-couchdb
+
+
 flask-babel
 flask-uploads
 
@@ -23,7 +24,6 @@ flask-uploads
 
 
 flask-classy
-flask-couchdb
 flask-restless
 
 pytz
