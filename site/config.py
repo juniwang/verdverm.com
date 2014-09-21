@@ -7,6 +7,8 @@ DATABASE_CONNECTION_OPTIONS = {}
 
 THREADS_PER_PAGE = 2
 
+DEBUG = True
+
 # Enable protection agains *Cross-site Request Forgery (CSRF)*
 CSRF_ENABLED     = True
 

@@ -19,4 +19,6 @@ EXPOSE 5000
 
 VOLUME ["/src"]
 
+ENTRYPOINT ["python", "/src/run.py"]
+
 CMD python /src/run.py
