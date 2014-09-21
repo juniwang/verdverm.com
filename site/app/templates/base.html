@@ -101,6 +101,19 @@
 </nav>
 
 
+    <div class="row">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+
 	<!-- END OF THE MENU -->
 
     {% block content %}{% endblock %}

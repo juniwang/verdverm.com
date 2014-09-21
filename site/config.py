@@ -2,33 +2,17 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-CSRF_ENABLED = True
-SECRET_KEY = 'this-really-needs-to-be-changed'
 SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+DATABASE_CONNECTION_OPTIONS = {}
 
-class Config(object):
-    DEBUG = False
-    TESTING = False
-    CSRF_ENABLED = True
-    SECRET_KEY = 'this-really-needs-to-be-changed'
+THREADS_PER_PAGE = 2
 
-# export DATABASE_URL='postgresql://scott:tiger@localhost:port/mydatabase'
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+# Enable protection agains *Cross-site Request Forgery (CSRF)*
+CSRF_ENABLED     = True
 
+# Use a secure, unique and absolutely secret key for
+# signing the data.
+CSRF_SESSION_KEY = "secret"
 
-class ProductionConfig(Config):
-    DEBUG = False
-
-
-class StagingConfig(Config):
-    DEVELOPMENT = True
-    DEBUG = True
-
-
-class DevelopmentConfig(Config):
-    DEVELOPMENT = True
-    DEBUG = True
-
-
-class TestingConfig(Config):
-    TESTING = True
+# Secret key for signing cookies
+SECRET_KEY = "secret"

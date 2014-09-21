@@ -1,19 +1,26 @@
 from app import db
-# from sqlalchemy.dialects.postgresql import JSON 
+# from sqlalchemy.dialects.postgresql import JSON
+
+# Define a base model for other database tables to inherit
+class Base(db.Model):
+
+    __abstract__  = True
+
+    id            = db.Column(db.Integer, primary_key=True)
+    date_created  = db.Column(db.DateTime,  default=db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(),
+                                           onupdate=db.func.current_timestamp())
+
+
 
 ROLE_NULL = 0
 ROLE_USER = 1
 ROLE_ADMIN = 2
 
-class UserBasic(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+class UserBasic(Base):
     nickname = db.Column(db.String(64), unique = True)
     email = db.Column(db.String(120), unique = True)
-    hpass = db.Column(db.LargeBinary)
-    role = db.Column(db.SmallInteger, default = ROLE_NULL)
     maillist = db.Column(db.Boolean, default = False)
-    active = db.Column(db.Boolean, default = False)
-    activated = db.Column(db.Boolean, default = False)
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
 
     def is_authenticated(self):
@@ -33,6 +40,7 @@ class UserBasic(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.nickname)
+
 
 
 class Post(db.Model):
