@@ -13,35 +13,47 @@
 
 {% block content %}
 <div class="row">
-    <div class="large-12 large-centered small-12 columns">
+    <div class="large-12 columns">
         <div class="panel">
             <div class="row">
-                <div class="small-4 columns">
+                <div class="large-4 columns">
                 <label>Drafts</label>
                     {{form.drafts}}
                 </div>
 
-                <div class="small-4 columns">
-                <label>Title</label>
-                    <input type="text" id="post-compose-field-title" placeholder="title" />
+                <div class="large-2 columns">
+                    <a id="post-edit-button" class="button small">Edit Draft</a>
                 </div>
-
-                <div class="small-4 columns">
-                    <label> Publish {{form.dopost}} </label>
-                    <a id="post-compose-button" class="button small">Save Draft</a>
-                </div>
+                
+                <div class="large-6 columns"> </div>
             </div>
             {{form.hidden_tag()}}
-
-
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="large-12 large-centered small-12 columns">
+    <div class="large-12 columns">
         <div class="panel">
-            <h3><b>Compose a nice message to your users!</b></h3>
+            <div class="row">
+                <div class="large-4 columns">
+                <label>Title</label>
+                    <input type="text" id="post-field-title" placeholder="title" />
+                </div>
+
+                <div class="large-4 columns">
+                    <label>Tags</label>
+                    <input type="text" id="post-field-tags" placeholder="tag1, tag2, tag3..." />
+                </div>
+
+                <div class="large-2 columns">
+                    <a id="post-save-button" class="button small">Save Draft</a>
+                </div>
+                
+                <div class="large-2 columns">
+                    <label> Publish {{form.dopost}} </label>
+                </div>
+            </div>
 			<div id="epiceditor"></div>
         </div>
     </div>

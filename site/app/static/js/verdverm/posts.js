@@ -6,7 +6,7 @@ function initEpicEditor() {
         container: 'epiceditor',
         textarea: null,
         basePath: '/static/css/vendor/epiceditor',
-        // clientSideStorage: true,
+        clientSideStorage: false,
         // localStorageName: 'epiceditor',
         useNativeFullscreen: true,
         parser: marked,
@@ -45,7 +45,8 @@ function initEpicEditor() {
 
 function initPostCompose() {
     // button handler
-    $("#post-compose-button").on("click",  handlePostComposeSaveDraft);
+    $("#post-save-button").on("click",  handlePostComposeSaveDraft);
+    $("#post-edit-button").on("click",  handlePostEditDraft);
    
 }
 
@@ -53,7 +54,7 @@ function handlePostComposeSaveDraft(event) {
     console.log("Saving Draft");
 
     var draft = $("#drafts").val();
-    var subject = $("#post-compose-field-title").val();
+    var subject = $("#post-field-title").val();
     var dopost = false;
     if ( $("#dopost").is(':checked') ) {
         dopost = true
@@ -96,9 +97,47 @@ function dosend_post_save_draft(draft, title, textbody, htmlbody, dopost, csrf) 
             }
         }
     };
+    xhr.onerror = function(e) {
+        console.error(xhr.statusText);
+    };
+    xhr.send(null);
+}
+
+function handlePostEditDraft(event) {
+    console.log("Loading Draft");
+
+    var draft = $("#drafts").val();
+    if (draft == null || draft == -1) {
+        console.log("no post to load");
+        return;
+    }
+
+    var csrf = $("#csrf_token").val();
+    dosend_post_load_draft(draft, csrf);
+}
+
+function dosend_post_load_draft(draft, csrf) {
+    var post_query = "/post/content";
+    post_query += "?pid=" + encodeURIComponent(draft);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", post_query, true);
+    xhr.setRequestHeader('X-CSRF-Token', csrf);
 
 
-
+    xhr.onload = function(e) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var results = JSON.parse(xhr.responseText);
+                $("#post-field-title").val(results.title);
+                // console.log(results.body);
+                editor.importFile(results.title,results.body)
+                
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
     xhr.onerror = function(e) {
         console.error(xhr.statusText);
     };

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, session, url_for, request, g, make_response
+from flask import render_template, flash, redirect, session, url_for, request, g, make_response, jsonify
 
 from app.auth import constants as USER
 
@@ -66,4 +66,24 @@ def editpost():
     return render_template("posts/editpost.html", form=form, user=g.user, admin=g.admin)
 
 
+@app.route('/post/content', methods = ['POST'])
+def getpost():
+    if g.auth is not None and g.auth.role is not USER.ADMIN:
+        return redirect(url_for('not_found'))
 
+    form = request.args
+    pid = form.get('pid')
+    post = Post.query.filter_by(id=pid).first()
+    
+    if post is None:
+        return jsonify({ 'error': 'post_not_found'}), 404
+
+    body = post.textbody
+    # print >> sys.stderr, body
+
+    p = {
+        'title': post.title,
+        'body': body,
+    }
+
+    return jsonify(p), 200
