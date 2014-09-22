@@ -6,6 +6,7 @@ from forms import SignupForm
 
 from app.auth import constants as USER
 from app.auth.controllers import *
+from app.posts.controllers import *
 
 @lm.user_loader
 def load_user(id):
@@ -20,6 +21,16 @@ def before_request():
             g.admin = g.auth
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("errors/404.html")
+
+@app.errorhandler(400)
+def not_found(error):
+    print error
+    return render_template("errors/400.html")
+
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -31,26 +42,6 @@ def index():
     if hasattr(g, 'admin'):
         admin = g.admin
     return render_template("index.html", user=user, admin=admin)
-
-@app.route('/posts')
-def posts():
-    user = g.user
-    if g.auth is not None and auth.is_anonymous():
-        user = None
-
-    posts = [ # fake array of posts
-        {
-            'author': { 'nickname': 'John' },
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': { 'nickname': 'Susan' },
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template("posts.html",
-        user = user,
-        posts = posts)
 
 
 @app.route('/signup', methods=['GET', 'POST'])

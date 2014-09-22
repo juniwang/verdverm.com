@@ -8,7 +8,6 @@ class Post(Base):
     title = db.Column(db.String(256), unique = True)
     textbody = db.Column(db.LargeBinary)
     htmlbody = db.Column(db.LargeBinary)
-    timestamp = db.Column(db.DateTime)
     draft = db.Column(db.Boolean, default = True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user_basic.id'))
@@ -23,7 +22,6 @@ class Comment(Base):
 
     textbody = db.Column(db.LargeBinary)
     htmlbody = db.Column(db.LargeBinary)
-    timestamp = db.Column(db.DateTime)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user_basic.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))

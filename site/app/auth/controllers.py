@@ -9,7 +9,6 @@ from app.auth.models import UserAuth
 from app.auth.forms import LoginForm, RegisterForm
 from app.auth import constants as USER
 
-## Last import 
 from app import app, db, bcrypt
 
 

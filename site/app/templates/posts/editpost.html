@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Edit Posts{% endblock %}
+
+{% block moreScripts %}
+	.js({epiceditor: "/static/js/vendor/epiceditor.min.js"})
+{% endblock %}
+
+{% block moreHead %}
+	initEpicEditor();
+	initPostCompose();
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="large-12 large-centered small-12 columns">
+        <div class="panel">
+            <div class="row">
+                <div class="small-4 columns">
+                <label>Drafts</label>
+                    {{form.drafts}}
+                </div>
+
+                <div class="small-4 columns">
+                <label>Title</label>
+                    <input type="text" id="post-compose-field-title" placeholder="title" />
+                </div>
+
+                <div class="small-4 columns">
+                    <label> Publish {{form.dopost}} </label>
+                    <a id="post-compose-button" class="button small">Save Draft</a>
+                </div>
+            </div>
+            {{form.hidden_tag()}}
+
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 large-centered small-12 columns">
+        <div class="panel">
+            <h3><b>Compose a nice message to your users!</b></h3>
+			<div id="epiceditor"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

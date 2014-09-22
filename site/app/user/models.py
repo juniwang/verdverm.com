@@ -10,11 +10,8 @@ class UserBasic(Base):
     maillist = db.Column(db.Boolean, default = False)
 
     auth = db.relationship('UserAuth', backref = 'user_basic', lazy = 'joined')
-    posts = db.relationship('Post', backref = 'user_basic', lazy = 'dynamic')
-    comments = db.relationship('Comment', backref = 'user_basic', lazy = 'dynamic')
-
-    def is_anonymous(self):
-        return True
+    posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
+    comments = db.relationship('Comment', backref = 'author', lazy = 'dynamic')
 
     def get_id(self):
         return unicode(self.id)

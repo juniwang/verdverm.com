@@ -26,8 +26,8 @@
 
         {% block moreScripts %}{% endblock %}
 
-        // .js({ verdverm_css: "/static/css/verdverm.css"})
-        // .js({ verdverm_js: "/static/js/verdverm.js"})
+        .js({ verdverm_css: "/static/css/verdverm.css"})
+        .js({ verdverm_js: "/static/js/verdverm.js"})
 
     </script>
 
@@ -81,9 +81,9 @@
                     <li class="divider"></li>
                     <li id="menu-admin" class="has-dropdown"><a href="/a">Admin</a>
                         <ul class="dropdown">
-                            <li><a href="/a/users">Manage Users</a></li>
-                            <li><a href="/a/posts">Manage Posts</a></li>
-                            <li><a href="/a/maillistcompose">Maillist Compose</a></li>
+                            <li><a href="/posts/edit">Manage Posts</a></li>
+                            <li><a href="/users">Manage Users</a></li>
+                            <li><a href="/maillist">Manage Maillist</a></li>
                         </ul>
                     </li>
                     {% endif %}

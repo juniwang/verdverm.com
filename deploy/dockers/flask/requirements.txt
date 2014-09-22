@@ -11,9 +11,12 @@ flask-migrate
 psycopg2
 alembic
 
+flask-assets
+jsmin
+pyScss
+
 flask-mail
 flask-wtf
-flask-assets
 flask-couchdb
 
 
