@@ -27,6 +27,11 @@
 	    <div class="large-12 large-centered small-12 columns">
 	        <div class="panel">
 	            <h1>{{post.title}}:</h1>
+	            {% if admin %}
+	            	<a href="/posts/edit?pid={{post.id}}" class="button small">Edit Draft</a>
+	            {% endif %}
+	            <p>Posted: {{post.posted}}</p>
+	            <p>Updated: {{post.updated}}</p>
 	            {{post.body|safe}}
 	        </div>
 	    </div>

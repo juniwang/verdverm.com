@@ -43,10 +43,16 @@ function initEpicEditor() {
     editor = new EpicEditor(opts).load();
 }
 
-function initPostCompose() {
+function initPostCompose(pid) {
     // button handler
     $("#post-save-button").on("click",  handlePostComposeSaveDraft);
     $("#post-edit-button").on("click",  handlePostEditDraft);
+
+    console.log("pid: ", pid);
+    if (pid != null) {
+        var csrf = $("#csrf_token").val();
+        dosend_post_load_draft(pid, csrf);
+    }
    
 }
 

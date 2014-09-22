@@ -9,6 +9,7 @@ class Post(Base):
     textbody = db.Column(db.LargeBinary)
     htmlbody = db.Column(db.LargeBinary)
     draft = db.Column(db.Boolean, default = True)
+    posted = db.Column(db.DateTime)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user_basic.id'))
     comments = db.relationship('Comment', backref = 'post', lazy = 'dynamic')
