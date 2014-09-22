@@ -6,14 +6,13 @@ function initEpicEditor() {
         container: 'epiceditor',
         textarea: null,
         basePath: '/static/css/vendor/epiceditor',
-        clientSideStorage: true,
-        localStorageName: 'epiceditor',
+        // clientSideStorage: true,
+        // localStorageName: 'epiceditor',
         useNativeFullscreen: true,
         parser: marked,
         file: {
             name: 'epiceditor',
-            defaultContent: '',
-            autoSave: 100
+            defaultContent: ''
         },
         theme: {
             base: '/themes/base/epiceditor.css',
@@ -32,15 +31,14 @@ function initEpicEditor() {
             preview: 80
         },
         autogrow: {
-            minHeight: 200,
+            minHeight: 400,
             scroll: true
         },
         string: {
             togglePreview: 'Toggle Preview Mode',
             toggleEdit: 'Toggle Edit Mode',
             toggleFullscreen: 'Enter Fullscreen'
-        },
-        autogrow: false
+        }
     }
     editor = new EpicEditor(opts).load();
 }
@@ -66,9 +64,9 @@ function handlePostComposeSaveDraft(event) {
     }
 
     var textContent = editor.exportFile();
-    console.log(textContent);
+    // console.log(textContent);
     var htmlContent = editor.exportFile(null,"html");
-    console.log(htmlContent);
+    // console.log(htmlContent);
 
     var csrf = $("#csrf_token").val();
     dosend_post_save_draft(draft, subject, textContent, htmlContent, dopost, csrf);

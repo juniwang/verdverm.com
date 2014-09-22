@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Posts{% endblock %}
 
+{% block moreStyles %}
+	<link rel="stylesheet" type="text/css" charset="utf-8" href="/static/css/vendor/highlightpack/styles/solarized_dark.css" />
+{% endblock %}
+
 {% block moreScripts %}
-	.js({epiceditor: "/static/js/vendor/epiceditor.min.js"})
+	.js({highlight: "/static/js/vendor/highlight.pack.js"})
+{% endblock %}
+
+{% block moreHead %}
+	hljs.initHighlightingOnLoad();
 {% endblock %}
 
 {% block content %}

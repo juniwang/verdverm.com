@@ -15,15 +15,23 @@ def load_user(id):
 @app.before_request
 def before_request():
     g.auth = current_user
+    g.user = None
+    g.admin = None
     if g.auth is not None and not g.auth.is_anonymous():
         g.user = UserBasic.query.get(g.auth.user_id)
         if g.auth.role is USER.ADMIN:
             g.admin = g.auth
+    user = None
+    admin = None
+    if hasattr(g, 'user'):
+        user = g.user
+    if hasattr(g, 'admin'):
+        admin = g.admin
 
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template("errors/404.html")
+    return render_template("errors/404.html", user=g.user, admin=g.admin)
 
 @app.errorhandler(400)
 def not_found(error):
@@ -34,14 +42,7 @@ def not_found(error):
 @app.route('/')
 @app.route('/index')
 def index():
-    auth = g.auth
-    user = None
-    admin = None
-    if hasattr(g, 'user'):
-        user = g.user
-    if hasattr(g, 'admin'):
-        admin = g.admin
-    return render_template("index.html", user=user, admin=admin)
+    return render_template("index.html", user=g.user, admin=g.admin)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
