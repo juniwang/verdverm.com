@@ -12,5 +12,5 @@ docker run --rm -i -t --name verdverm.com-managedb \
 	--link verdverm.com-psql:vvdb \
 	-v $(pwd):/src \
 	-e DATABASE_URL="postgresql://$db_user:$db_pass@vvdb/$db_name" \
-	verdverm/verdverm.com-flask /bin/bash -c "cd src && python manage.py $args"
+	verdverm/verdverm.com-flask $args
 

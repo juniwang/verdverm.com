@@ -2,23 +2,24 @@
 # We will define this inside /app/__init__.py in the next sections.
 from app import db
 from app.models import Base
-
-ROLE_NULL = 0
-ROLE_USER = 1
-ROLE_ADMIN = 2
+from app.auth import constants as USER
 
 class UserAuth(Base):
-    id = db.Column(db.Integer, primary_key = True)
+
+    __tablename__ = 'user_auth'
+
     hpass = db.Column(db.LargeBinary)
-    role = db.Column(db.SmallInteger, default = ROLE_NULL)
-    active = db.Column(db.Boolean, default = False)
-    activated = db.Column(db.Boolean, default = False)
+    role = db.Column(db.SmallInteger, default=USER.USER)
+    status = db.Column(db.SmallInteger, default=USER.NEW)
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('user_basic.id'))
+
 
     def is_authenticated(self):
         return True
 
     def is_active(self):
-        return True
+        return self.status != USER.INACTIVE
 
     def is_anonymous(self):
         return False

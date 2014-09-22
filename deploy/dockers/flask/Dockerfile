@@ -18,7 +18,7 @@ RUN pip install -r /tmp/requirements.txt
 EXPOSE 5000
 
 VOLUME ["/src"]
+WORKDIR /src
 
 ENTRYPOINT ["python", "/src/run.py"]
-
-CMD python /src/run.py
+CMD ["runserver"]

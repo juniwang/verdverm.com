@@ -2,41 +2,41 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import current_user, login_required
 
 from app import app, db, lm, bcrypt
-from forms import PageDownFormExample, SignupForm
-from app.auth.models import ROLE_ADMIN
+from forms import SignupForm
 
+from app.auth import constants as USER
 from app.auth.controllers import *
 
 @lm.user_loader
 def load_user(id):
-    return UserBasic.query.get(int(id))
+    return UserAuth.query.filter_by(user_id = int(id)).first()
 
 @app.before_request
 def before_request():
-    g.user = current_user
-    if not g.user.is_anonymous() and g.user.role is ROLE_ADMIN:
-        g.admin = g.user
+    g.auth = current_user
+    if g.auth is not None and not g.auth.is_anonymous():
+        g.user = UserBasic.query.get(g.auth.user_id)
+        if g.auth.role is USER.ADMIN:
+            g.admin = g.auth
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user = g.user
+    auth = g.auth
+    user = None
     admin = None
-    if user.is_anonymous():
-        user = None
+    if hasattr(g, 'user'):
+        user = g.user
     if hasattr(g, 'admin'):
         admin = g.admin
     return render_template("index.html", user=user, admin=admin)
 
 @app.route('/posts')
 def posts():
-
     user = g.user
-    if user.is_anonymous():
+    if g.auth is not None and auth.is_anonymous():
         user = None
-
-    form = PageDownFormExample()
 
     posts = [ # fake array of posts
         {
@@ -50,13 +50,12 @@ def posts():
     ]
     return render_template("posts.html",
         user = user,
-        posts = posts,
-        form = form)
+        posts = posts)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if g.user is not None and g.user.is_authenticated():
+    if g.auth is not None and g.auth.is_authenticated():
         return redirect(url_for('index'))
 
     form = SignupForm()
