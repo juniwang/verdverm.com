@@ -9,10 +9,7 @@ my homepage
 ```
 git clone https://github.com/verdverm/verdverm.com
 
-cd verdverm.com
-mkdir -p tmp/postgresql
-
-cd deploy/dockers
+cd verdverm.com/deploy/dockers
 ./build.sh
 
 cd ..

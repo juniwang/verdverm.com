@@ -22,16 +22,19 @@ def posts():
     if hasattr(g, 'admin'):
         admin = g.admin
 
-    posts = [ # fake array of posts
-        {
-            'author': { 'nickname': 'John' },
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': { 'nickname': 'Susan' },
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
+    posts = [ {'title':p.title,'body':str(p.htmlbody)} for p in Post.query.order_by(Post.title).all()]
+
+
+    # posts = [ # fake array of posts
+    #     {
+    #         'author': { 'nickname': 'John' },
+    #         'body': 'Beautiful day in Portland!'
+    #     },
+    #     {
+    #         'author': { 'nickname': 'Susan' },
+    #         'body': 'The Avengers movie was so cool!'
+    #     }
+    # ]
     return render_template("posts/posts.html",
         user = user,
         admin = admin,
