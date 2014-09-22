@@ -19,6 +19,7 @@ cd ..
 ./managedb.sh db migrate
 ./managedb.sh db upgrade
 ./managedb.sh dbfill
+./managedb.sh assets build
 ```
 
 You can now open `localhost:5000`
